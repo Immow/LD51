@@ -1,6 +1,5 @@
 local Level = {}
 -- local cell = require("constructors.cell")
-local s = require("settings")
 local grid = require("state.game.grid")
 
 function Level:load()

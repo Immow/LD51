@@ -1,5 +1,6 @@
 local Grid = {}
 local cell = require("constructors.cell")
+-- local enemies = require("state.game.enemies")
 
 function Grid:load()
 	self:generateGrid(Settings.boardSizeX, Settings.boardSizeY)
@@ -33,11 +34,23 @@ function Grid:draw()
 end
 
 function Grid:update(dt)
-
+	for i = 1, #self.cells do
+		for j = 1, #self.cells[i] do
+			self.cells[i][j]:update(dt)
+		end
+	end
 end
 
 function Grid:mousepressed(x,y,button,istouch,presses)
-
+	for i = 1, #self.cells do
+		for j = 1, #self.cells[i] do
+			if self.cells[i][j]:containsPoint(x, y) then
+				if self.cells[i][j].state == "empty" then
+					self.cells[i][j].state = "tower"
+				end
+			end
+		end
+	end
 end
 
 function Grid:mousereleased(x,y,button,istouch,presses)

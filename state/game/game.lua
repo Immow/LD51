@@ -1,13 +1,13 @@
+Enemies            = require("state.game.enemies")
 local grid         = require("state.game.grid")
 local level        = require("state.game.level")
-local enemies        = require("state.game.enemies")
 
 local Game = {}
 
 function Game:load()
 	grid:load()
 	level:load()
-	enemies:load()
+	Enemies:load()
 end
 
 function WriteSaveData()
@@ -31,12 +31,12 @@ end
 
 function Game:draw()
 	grid:draw()
-	enemies:draw()
+	Enemies:draw()
 end
 
 function Game:update(dt)
 	grid:update(dt)
-	enemies:update(dt)
+	Enemies:update(dt)
 end
 
 function Game:keypressed(key,scancode,isrepeat)
@@ -49,10 +49,12 @@ end
 
 function Game:mousepressed(x,y,button,istouch,presses)
 	grid:mousepressed(x,y,button,istouch,presses)
+	level:mousepressed(x,y,button,istouch,presses)
 end
 
 function Game:mousereleased(x,y,button,istouch,presses)
 	grid:mousereleased(x,y,button,istouch,presses)
+	level:mousereleased(x,y,button,istouch,presses)
 	WriteSaveData()
 end
 

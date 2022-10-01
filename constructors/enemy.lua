@@ -25,6 +25,10 @@ function Enemy:movement(dt)
 	end
 end
 
+function Enemy:getPosition()
+	return {x = self.x, y = self.y}
+end
+
 function Enemy:containsPoint()
 	-- local x = 0
 	-- local y = 0

@@ -1,4 +1,4 @@
-local Enemies = {}
+Enemies = {}
 local enemy = require("constructors.enemy")
 -- local grid = require("state.game.grid")
 Enemies.active = {}
