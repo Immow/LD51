@@ -4,8 +4,11 @@ local s = require("settings")
 local grid = require("state.game.grid")
 
 function Level:load()
-	grid.cells[10][10].state = "left"
-	grid.cells[10][1].state = "up"
+	-- y, x
+	grid.cells[10][10].direction = {x = -1, y = 0}
+	grid.cells[10][1].direction = {x = 0, y = -1}
+	grid.cells[5][1].direction = {x = 1, y = 0}
+	grid.cells[5][5].direction = {x = 0, y = -1}
 end
 
 function Level:drawLevel()

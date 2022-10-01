@@ -8,8 +8,10 @@ function Enemy.new(settings)
 	instance.y      = settings.y or 0
 	instance.width  = settings.width or 50
 	instance.height = settings.height or 50
-	instance.direction = settings.direction or {1, 1}
+	instance.radius = settings.width / 2 - 10
+	instance.direction = settings.direction or {x = 1, y = 1}
 	instance.speed = settings.speed or 100
+	instance.health = settings.health or 100
 	return instance
 end
 
@@ -23,18 +25,35 @@ function Enemy:movement(dt)
 	end
 end
 
-function Enemy:containsPoint(x, y)
-	return x >= self.x and x <= self.x + self.width and y >= self.y and y <= self.y + self.height
+function Enemy:containsPoint()
+	-- local x = 0
+	-- local y = 0
+	for i = 1, #grid.cells do
+		for j = 1, #grid.cells[i] do
+			local cell = grid.cells[i][j]
+			-- if cell.x >= self.x and cell.x <= self.x + self.width and cell.y >= self.y and cell.y <= self.y + self.height then
+			if cell.x >= self.x - 0.5 and cell.x <= self.x + 0.5 and cell.y >= self.y - 0.5 and cell.y <= self.y + 0.5 then
+				return cell
+			end
+		end
+	end
+
 end
 
 function Enemy:update(dt)
-	self:containsPoint()
+	if self:containsPoint() then
+		if self:containsPoint().direction.x ~= 0 or self:containsPoint().direction.y ~= 0 then
+			print(self:containsPoint().direction.x)
+			self.direction = self:containsPoint().direction
+		end
+	end
 	self:movement(dt)
 end
 
 function Enemy:draw()
 	love.graphics.setColor(Colors.green)
-	love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+	-- love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+	love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.radius)
 end
 
 return Enemy

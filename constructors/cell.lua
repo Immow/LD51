@@ -10,6 +10,7 @@ function Cell.new(settings)
 	instance.id                  = settings.id or 0
 	instance.position            = settings.position
 	instance.state               = "empty"
+	instance.direction           = settings.direction or {x = 0, y = 0}
 	return instance
 end
 
@@ -49,6 +50,11 @@ function Cell:drawState(drawState)
 		love.graphics.setColor(Colors.white24)
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	end
+
+	if self.direction.x ~= 0 or self.direction.y ~= 0 then
+		love.graphics.setColor(Colors.yellow)
+		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+	end
 end
 
 function Cell:draw(drawState)
@@ -58,7 +64,7 @@ function Cell:draw(drawState)
 		love.graphics.setColor(1,0,0)
 		-- love.graphics.print("i: "..self.position.x.." j: "..self.position.y, self.x, self.y+15)
 		-- love.graphics.print("id: "..self.id, self.x, self.y)
-		love.graphics.print(self.state, self.x, self.y)
+		love.graphics.print(self.direction.x.."\n"..self.direction.y, self.x, self.y)
 	end
 end
 
