@@ -12,7 +12,7 @@ function Enemy.new(settings)
 	instance.radius = settings.width / 2 - 10
 	instance.direction = settings.direction or {x = 1, y = 1}
 	instance.speed = settings.speed or 10
-	instance.health = settings.health or 100
+	instance.hp = settings.hp or 100
 	instance.id = id
 	id = id + 1
 	return instance
@@ -47,6 +47,12 @@ function Enemy:containsPoint()
 
 end
 
+function Enemy:remove()
+	if self.hp <= 0 then
+		return true
+	end
+end
+
 function Enemy:update(dt)
 	if self:containsPoint() then
 		if self:containsPoint().direction.x ~= 0 or self:containsPoint().direction.y ~= 0 then
@@ -61,6 +67,8 @@ function Enemy:draw()
 	love.graphics.setColor(Colors.green)
 	-- love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.radius)
+	love.graphics.setColor(Colors.white)
+	love.graphics.print(self.hp, self.x + self.width / 2, self.y + self.height / 2)
 end
 
 return Enemy

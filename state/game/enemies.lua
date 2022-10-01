@@ -15,6 +15,7 @@ function Enemies:generateEnemy()
 		width = 50,
 		height = 50,
 		direction = {x = 0, y = 1},
+		hp = 50,
 	})
 )
 Timer.new(5, function () Enemies:generateEnemy() end)
@@ -34,6 +35,9 @@ end
 function Enemies:update(dt)
 	for i = #self.active, 1, -1 do
 		self.active[i]:update(dt)
+		if self.active[i]:remove() then
+			table.remove(self.active, i)
+		end
 	end
 end
 

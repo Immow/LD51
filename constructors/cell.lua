@@ -19,6 +19,7 @@ function Cell.new(settings)
 	instance.attack              = false
 	instance.taget               = nil
 	instance.targetObject        = nil
+	instance.time                = 1
 	return instance
 end
 
@@ -42,6 +43,7 @@ end
 
 function Cell:detectEnemy(dt)
 	if self.state ~= "tower" then return end
+	self.time = self.time - 1 * dt
 	for i = #Enemies.active, 1, -1 do
 		local distanceX = self.x - Enemies.active[i]:getPosition().x
 		local distanceY = self.y - Enemies.active[i]:getPosition().y
@@ -53,22 +55,22 @@ function Cell:detectEnemy(dt)
 	end
 end
 
-local timer = 1
 function Cell:shoot(target, dt)
-	if timer < 0 then
-		timer = 1
+	if self.time < 0 then
+		self.attack = false
+		self.time = 1
 	end
-	if timer == 1 then
+	if self.time == 1 and not self.attack then
+		self.attack = true
 		table.insert(activeBullets, bullet.new({
 			x = self.x + self.width / 2,
 			y = self.y + self.height / 2,
 			targetX = target.x + self.width / 2,
-			targetY = target.y + self.height / 2
-		})
-	)
-end
-
-timer = timer - 1 * dt
+			targetY = target.y + self.height / 2,
+			target = target
+			})
+		)
+	end
 end
 
 function Cell:printPosition()
@@ -79,6 +81,9 @@ function Cell:update(dt)
 	self:detectEnemy(dt)
 	for i = #activeBullets, 1, -1 do
 		activeBullets[i]:update(dt)
+		if activeBullets[i].alive == false then
+			table.remove(activeBullets, i)
+		end
 	end
 end
 
@@ -86,9 +91,9 @@ function Cell:drawState()
 	if self.state == "tower" then
 		love.graphics.setColor(Colors.purple)
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-		love.graphics.circle("line", self.x + self.width / 2, self.y + self.height / 2, self.range)
+		-- love.graphics.circle("line", self.x + self.width / 2, self.y + self.height / 2, self.range)
 		if self.attack then
-			love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.range)
+			-- love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.range)
 		end
 	else
 		love.graphics.setColor(Colors.white24)
@@ -105,6 +110,7 @@ function Cell:drawBullets()
 	for i = #activeBullets, 1, -1 do
 		activeBullets[i]:draw()
 	end
+	love.graphics.print("\n"..#activeBullets)
 end
 
 function Cell:draw()
