@@ -1,6 +1,9 @@
 local Cell = {}
+local bullet = require("constructors.bullet")
+
 Cell.__index = Cell
--- local enemies = require("state.game.enemies")
+
+local activeBullets = {}
 
 function Cell.new(settings)
 	local instance = setmetatable({}, Cell)
@@ -14,6 +17,8 @@ function Cell.new(settings)
 	instance.direction           = settings.direction or {x = 0, y = 0}
 	instance.range               = settings.range or 100
 	instance.attack              = false
+	instance.taget               = nil
+	instance.targetObject        = nil
 	return instance
 end
 
@@ -35,35 +40,35 @@ function Cell:getEnemyPosition()
 	end
 end
 
-function Cell:detectCollision()
-	-- float distX = c1x - c2x;
-	-- float distY = c1y - c2y;
-	-- float distance = sqrt( (distX*distX) + (distY*distY) );
-  
-	-- // if the distance is less than the sum of the circle's
-	-- // radii, the circles are touching!
-	-- if (distance <= c1r+c2r) {
-	--   return true;
-	-- }
-	-- return false;
-
-
-end
-
-function Cell:detectEnemy()
+function Cell:detectEnemy(dt)
 	if self.state ~= "tower" then return end
-	for i = 1, #Enemies.active do
-		-- return Enemies.active[i]:getPosition()
+	for i = #Enemies.active, 1, -1 do
 		local distanceX = self.x - Enemies.active[i]:getPosition().x
 		local distanceY = self.y - Enemies.active[i]:getPosition().y
 		local enemyRadius = Enemies.active[i].radius
 		local distance = math.sqrt((distanceX * distanceX) + (distanceY * distanceY))
 		if distance <= self.range + enemyRadius then
-			self.attack = true
-		else
-			self.attack = false
+			self:shoot(Enemies.active[i], dt)
 		end
 	end
+end
+
+local timer = 1
+function Cell:shoot(target, dt)
+	if timer < 0 then
+		timer = 1
+	end
+	if timer == 1 then
+		table.insert(activeBullets, bullet.new({
+			x = self.x + self.width / 2,
+			y = self.y + self.height / 2,
+			targetX = target.x + self.width / 2,
+			targetY = target.y + self.height / 2
+		})
+	)
+end
+
+timer = timer - 1 * dt
 end
 
 function Cell:printPosition()
@@ -71,11 +76,13 @@ function Cell:printPosition()
 end
 
 function Cell:update(dt)
-	-- self:getEnemyPosition()
-	self:detectEnemy()
+	self:detectEnemy(dt)
+	for i = #activeBullets, 1, -1 do
+		activeBullets[i]:update(dt)
+	end
 end
 
-function Cell:drawState(drawState)
+function Cell:drawState()
 	if self.state == "tower" then
 		love.graphics.setColor(Colors.purple)
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
@@ -94,9 +101,15 @@ function Cell:drawState(drawState)
 	end
 end
 
-function Cell:draw(drawState)
-	self:drawState(drawState)
+function Cell:drawBullets()
+	for i = #activeBullets, 1, -1 do
+		activeBullets[i]:draw()
+	end
+end
 
+function Cell:draw()
+	self:drawState()
+	self:drawBullets()
 	if debug then
 		love.graphics.setColor(1,0,0)
 		-- love.graphics.print("i: "..self.position.x.." j: "..self.position.y, self.x, self.y+15)

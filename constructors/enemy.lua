@@ -1,6 +1,7 @@
 local Enemy = {}
 local grid = require("state.game.grid")
 Enemy.__index = Enemy
+local id = 1
 
 function Enemy.new(settings)
 	local instance = setmetatable({}, Enemy)
@@ -10,8 +11,10 @@ function Enemy.new(settings)
 	instance.height = settings.height or 50
 	instance.radius = settings.width / 2 - 10
 	instance.direction = settings.direction or {x = 1, y = 1}
-	instance.speed = settings.speed or 100
+	instance.speed = settings.speed or 10
 	instance.health = settings.health or 100
+	instance.id = id
+	id = id + 1
 	return instance
 end
 

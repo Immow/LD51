@@ -4,19 +4,20 @@ local enemy = require("constructors.enemy")
 Enemies.active = {}
 
 function Enemies:load()
+	self.active = {}
 	self:generateEnemy()
 end
 
 function Enemies:generateEnemy()
-	self.active = {}
 	table.insert(self.active, enemy.new({
-			x = Settings.boardOffsetX + Settings.cellSize * 9,
-			y = Settings.boardOffsetY + Settings.cellSize * 0,
-			width = 50,
-			height = 50,
-			direction = {x = 0, y = 1},
-		})
-	)
+		x = Settings.boardOffsetX + Settings.cellSize * 9,
+		y = Settings.boardOffsetY + Settings.cellSize * 0,
+		width = 50,
+		height = 50,
+		direction = {x = 0, y = 1},
+	})
+)
+Timer.new(5, function () Enemies:generateEnemy() end)
 end
 
 function Enemies:drawEnemies()
@@ -27,6 +28,7 @@ end
 
 function Enemies:draw()
 	self:drawEnemies()
+	love.graphics.print(#self.active)
 end
 
 function Enemies:update(dt)

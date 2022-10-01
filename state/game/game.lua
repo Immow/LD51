@@ -1,6 +1,7 @@
 Enemies            = require("state.game.enemies")
 local grid         = require("state.game.grid")
 local level        = require("state.game.level")
+local bullet = require("constructors.bullet")
 
 local Game = {}
 
