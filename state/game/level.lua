@@ -8,6 +8,7 @@ function Level:load()
 	grid.cells[10][1].direction = {x = 0, y = -1}
 	grid.cells[5][1].direction = {x = 1, y = 0}
 	grid.cells[5][5].direction = {x = 0, y = -1}
+	grid.cells[1][5].state = "finish"
 end
 
 function Level:drawLevel()

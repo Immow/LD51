@@ -42,15 +42,16 @@ function Cell:getEnemyPosition()
 end
 
 function Cell:detectEnemy(dt)
-	if self.state ~= "tower" then return end
-	self.time = self.time - 1 * dt
-	for i = #Enemies.active, 1, -1 do
-		local distanceX = self.x - Enemies.active[i]:getPosition().x
-		local distanceY = self.y - Enemies.active[i]:getPosition().y
-		local enemyRadius = Enemies.active[i].radius
-		local distance = math.sqrt((distanceX * distanceX) + (distanceY * distanceY))
-		if distance <= self.range + enemyRadius then
-			self:shoot(Enemies.active[i], dt)
+	if self.state == "tower" then
+		self.time = self.time - 1 * dt
+		for i = #Enemies.active, 1, -1 do
+			local distanceX = self.x - Enemies.active[i]:getPosition().x
+			local distanceY = self.y - Enemies.active[i]:getPosition().y
+			local enemyRadius = Enemies.active[i].radius
+			local distance = math.sqrt((distanceX * distanceX) + (distanceY * distanceY))
+			if distance <= self.range + enemyRadius then
+				self:shoot(Enemies.active[i], dt)
+			end
 		end
 	end
 end
@@ -67,7 +68,8 @@ function Cell:shoot(target, dt)
 			y = self.y + self.height / 2,
 			targetX = target.x + self.width / 2,
 			targetY = target.y + self.height / 2,
-			target = target
+			target = target,
+			speed = 0.1,
 			})
 		)
 	end
@@ -95,6 +97,9 @@ function Cell:drawState()
 		if self.attack then
 			-- love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.range)
 		end
+	elseif self.state == "finish" then
+		love.graphics.setColor(Colors.blue)
+		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	else
 		love.graphics.setColor(Colors.white24)
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)

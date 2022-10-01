@@ -39,7 +39,11 @@ function Enemy:containsPoint()
 		for j = 1, #grid.cells[i] do
 			local cell = grid.cells[i][j]
 			-- if cell.x >= self.x and cell.x <= self.x + self.width and cell.y >= self.y and cell.y <= self.y + self.height then
-			if cell.x >= self.x - 0.5 and cell.x <= self.x + 0.5 and cell.y >= self.y - 0.5 and cell.y <= self.y + 0.5 then
+			if cell.x >= self.x - 0.5 and
+				cell.x <= self.x + 0.5 and
+				cell.y >= self.y - 0.5 and
+				cell.y <= self.y + 0.5
+			then
 				return cell
 			end
 		end
@@ -58,6 +62,8 @@ function Enemy:update(dt)
 		if self:containsPoint().direction.x ~= 0 or self:containsPoint().direction.y ~= 0 then
 			print(self:containsPoint().direction.x)
 			self.direction = self:containsPoint().direction
+		elseif  self:containsPoint().state == "finish" then
+			print("finish!")
 		end
 	end
 	self:movement(dt)

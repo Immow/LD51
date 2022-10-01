@@ -15,7 +15,8 @@ function Enemies:generateEnemy()
 		width = 50,
 		height = 50,
 		direction = {x = 0, y = 1},
-		hp = 50,
+		hp = 10,
+		speed = 50,
 	})
 )
 Timer.new(5, function () Enemies:generateEnemy() end)

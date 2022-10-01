@@ -14,7 +14,7 @@ function Bullet.new(settings)
 	instance.alive = true
 	instance.target = settings.target
 	-- table.insert(activeBullets, instance)
-	Flux.to(instance, 1, {x = settings.targetX, y = settings.targetY})
+	Flux.to(instance, settings.speed, {x = settings.targetX, y = settings.targetY})
 	return instance
 end
 
