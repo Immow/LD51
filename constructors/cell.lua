@@ -6,6 +6,10 @@ Cell.__index = Cell
 local activeBullets = {}
 local roadV = love.graphics.newImage("assets/road/v1.png")
 local roadH = love.graphics.newImage("assets/road/h1.png")
+local UL = love.graphics.newImage("assets/road/UL.png")
+local UR = love.graphics.newImage("assets/road/UR.png")
+local LR = love.graphics.newImage("assets/road/LR.png")
+local LL = love.graphics.newImage("assets/road/LL.png")
 
 function Cell.new(settings)
 	local instance = setmetatable({}, Cell)
@@ -92,6 +96,8 @@ function Cell:update(dt)
 end
 
 function Cell:drawState()
+	love.graphics.setColor(Colors.green[800])
+	love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	if self.state == "tower" then
 		love.graphics.setColor(Colors.purple)
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
@@ -111,6 +117,18 @@ function Cell:drawState()
 	elseif self.state == "roadH" then
 		love.graphics.setColor(1,1,1)
 		love.graphics.draw(roadH, self.x, self.y)
+	elseif self.state == "UL" then
+		love.graphics.setColor(1,1,1)
+		love.graphics.draw(UL, self.x, self.y)
+	elseif self.state == "UR" then
+		love.graphics.setColor(1,1,1)
+		love.graphics.draw(UR, self.x, self.y)
+	elseif self.state == "LR" then
+		love.graphics.setColor(1,1,1)
+		love.graphics.draw(LR, self.x, self.y)
+	elseif self.state == "LL" then
+		love.graphics.setColor(1,1,1)
+		love.graphics.draw(LL, self.x, self.y)
 	else
 		love.graphics.setColor(Colors.white24)
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)

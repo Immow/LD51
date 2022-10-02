@@ -5,26 +5,25 @@ local id = 1
 
 function Enemy.new(settings)
 	local instance = setmetatable({}, Enemy)
-	instance.x      = settings.x or 0
-	instance.y      = settings.y or 0
-	instance.width  = settings.width or 50
-	instance.height = settings.height or 50
-	instance.radius = settings.width / 2 - 10
-	instance.direction = settings.direction or {x = 1, y = 0}
-	instance.speed = settings.speed or 10
-	instance.hp = settings.hp or 100
-	instance.id = id
-	id = id + 1
+	instance.x         = settings.x or 0
+	instance.y         = settings.y or 0
+	instance.width     = settings.width or 50
+	instance.height    = settings.height or 50
+	instance.radius    = settings.width / 2 - 10
+	instance.direction = settings.direction or "down"
+	instance.vec2      = {x = 0, y = -1}
+	instance.speed     = settings.speed or 10
+	instance.hp        = settings.hp or 100
 	return instance
 end
 
 function Enemy:movement(dt)
-	if self.direction.x ~= 0 then
-		self.x = self.x + (self.direction.x * self.speed * dt)
+	if self.vec2.x ~= 0 then
+		self.x = self.x + (self.vec2.x * self.speed * dt)
 	end
 
-	if self.direction.y ~= 0 then
-		self.y = self.y + (self.direction.y * self.speed * dt)
+	if self.vec2.y ~= 0 then
+		self.y = self.y + (self.vec2.y * self.speed * dt)
 	end
 end
 
@@ -48,7 +47,6 @@ function Enemy:containsPoint()
 			end
 		end
 	end
-
 end
 
 function Enemy:remove()
@@ -60,20 +58,18 @@ end
 function Enemy:update(dt)
 	if self:containsPoint() then
 		local cell = self:containsPoint()
-		if cell.state == "up" then
-			self.direction = {x = 0, y = -1}
-		elseif cell.state == "down" then
-			self.direction = {x = 0, y = 1}
-		elseif cell.state == "left" then
-			self.direction = {x = -1, y = 0}
-		elseif cell.state == "right" then
-			self.direction = {x = 1, y = 0}
+		if cell.direction == "up" then
+			self.vec2 = {x = 0, y = -1}
+		elseif cell.direction == "down" then
+			self.vec2 = {x = 0, y = 1}
+		elseif cell.direction == "left" then
+			self.vec2 = {x = -1, y = 0}
+		elseif cell.direction == "right" then
+			self.vec2 = {x = 1, y = 0}
+		elseif self:containsPoint().state == "finish" then
+			self.hp = 0
 		end
 	end
-
-		-- elseif  self:containsPoint().state == "finish" then
-		-- 	print("finish!")
-		-- end
 	self:movement(dt)
 end
 
