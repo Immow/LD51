@@ -4,6 +4,8 @@ local bullet = require("constructors.bullet")
 Cell.__index = Cell
 
 local activeBullets = {}
+local roadV = love.graphics.newImage("assets/road/v1.png")
+local roadH = love.graphics.newImage("assets/road/h1.png")
 
 function Cell.new(settings)
 	local instance = setmetatable({}, Cell)
@@ -99,7 +101,13 @@ function Cell:drawState()
 		end
 	elseif self.state == "finish" then
 		love.graphics.setColor(Colors.blue)
-		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+	elseif self.state == "roadV" then
+		love.graphics.setColor(1,1,1)
+		love.graphics.draw(roadV, self.x, self.y)
+	elseif self.state == "roadH" then
+		love.graphics.setColor(1,1,1)
+		love.graphics.draw(roadH, self.x, self.y)
 	else
 		love.graphics.setColor(Colors.white24)
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
@@ -107,7 +115,7 @@ function Cell:drawState()
 
 	if self.direction.x ~= 0 or self.direction.y ~= 0 then
 		love.graphics.setColor(Colors.yellow)
-		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	end
 end
 
