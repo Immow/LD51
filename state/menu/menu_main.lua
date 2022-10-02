@@ -10,8 +10,8 @@ local buttonList = {
 }
 
 local logo = {}
-logo.img = love.graphics.newImage("assets/logo/logo.png")
-logo.imgWidth = logo.img:getWidth()
+-- logo.img = love.graphics.newImage("assets/logo/logo.png")
+-- logo.imgWidth = logo.img:getWidth()
 
 function MenuMain:load()
 	self:generateButtons()
@@ -45,7 +45,7 @@ function MenuMain:draw()
 	love.graphics.setColor(Colors.setColorAndAlpha({color = Colors.white, alpha = 0.5}))
 	love.graphics.print("v "..Settings.version, 5, 5)
 	love.graphics.setColor(1,1,1)
-	love.graphics.draw(logo.img, Settings.ww / 2 - logo.imgWidth / 2, 20)
+	-- love.graphics.draw(logo.img, Settings.ww / 2 - logo.imgWidth / 2, 20)
 end
 
 function MenuMain:update(dt)

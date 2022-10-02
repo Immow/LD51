@@ -29,15 +29,11 @@ end
 local rows = {
 	row.new({x = centerRow, y = get_y_position(1), width = rowWidth, height = rowHeight, color = Colors.black}),
 	row.new({x = centerRow, y = get_y_position(2), width = rowWidth, height = rowHeight}),
-	row.new({x = centerRow, y = get_y_position(3), width = rowWidth, height = rowHeight, color = Colors.black}),
-	row.new({x = centerRow, y = get_y_position(4), width = rowWidth, height = rowHeight}),
 }
 
 local labelSettings = {
 	{name = "Game Created by", font = TitleFont, offset = 0, color = Colors.blue[300]},
 	{name = "Koen Schippers, Flux Game Design", font = SettingsFont},
-	{name = "Music", font = TitleFont, offset = 0, color = Colors.blue[300]},
-	{name = "Alexander Nakarada", font = SettingsFont},
 }
 
 local labels = {}

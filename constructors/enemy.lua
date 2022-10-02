@@ -52,6 +52,11 @@ end
 
 function Enemy:remove()
 	if self.hp <= 0 then
+		if self.id == "boss" then
+			Sound:play("bossDeath", "bossDeath", Settings.sfxVolume, 0.5)
+		else
+			Sound:play("death", "death", Settings.sfxVolume, 1)
+		end
 		return true
 	end
 end
@@ -87,7 +92,10 @@ function Enemy:draw()
 	-- love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.radius)
 	love.graphics.setColor(Colors.white)
-	love.graphics.print(self.hp, self.x + self.width / 2, self.y + self.height / 2)
+	love.graphics.setFont(Default)
+	local textWidth = Default:getWidth(self.hp)
+	local textHeight = Default:getHeight()
+	love.graphics.print(self.hp, self.x + self.width / 2 - textWidth / 2, self.y + self.height / 2 - textHeight / 2)
 end
 
 return Enemy

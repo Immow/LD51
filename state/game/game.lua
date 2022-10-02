@@ -18,8 +18,8 @@ function WriteSaveData()
 	
 	-- Lib.writeData("game_saves/"..Settings.problemNr..".dat", data)
 	
-	local gameSettings = Lib.saveDataList()
-	Lib.writeData("config.cfg", gameSettings)
+	-- local gameSettings = Lib.saveDataList()
+	-- Lib.writeData("config.cfg", gameSettings)
 
 	-- if Settings.game.state[Settings.problemNr] == "solved" then -- is the puzzle solved
 	-- 	Settings.game.state[Settings.problemNr] = "solved"
@@ -33,7 +33,7 @@ end
 function Game:draw()
 	grid:draw()
 	Enemies:draw()
-	love.graphics.print(gold.amount)
+	gold:draw()
 end
 
 function Game:update(dt)
@@ -57,7 +57,7 @@ end
 function Game:mousereleased(x,y,button,istouch,presses)
 	grid:mousereleased(x,y,button,istouch,presses)
 	level:mousereleased(x,y,button,istouch,presses)
-	WriteSaveData()
+	-- WriteSaveData()
 end
 
 return Game

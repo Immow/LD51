@@ -1,7 +1,6 @@
 local newButton   = require("constructors.button")
 local row         = require("constructors.row")
 local text        = require("constructors.text")
-local checkbox    = require("constructors.checkbox")
 local slider      = require("constructors.slider")
 
 local MenuSettings = {}
@@ -32,11 +31,6 @@ local rows = {
 	row.new({x = centerRow, y = get_y_position(1), width = rowWidth, height = rowHeight, color = Colors.black}),
 	row.new({x = centerRow, y = get_y_position(2), width = rowWidth, height = rowHeight}),
 	row.new({x = centerRow, y = get_y_position(3), width = rowWidth, height = rowHeight}),
-	row.new({x = centerRow, y = get_y_position(4), width = rowWidth, height = rowHeight}),
-	row.new({x = centerRow, y = get_y_position(5), width = rowWidth, height = rowHeight}),
-	row.new({x = centerRow, y = get_y_position(6), width = rowWidth, height = rowHeight, color = Colors.black}),
-	row.new({x = centerRow, y = get_y_position(7), width = rowWidth, height = rowHeight}),
-	row.new({x = centerRow, y = get_y_position(8), width = rowWidth, height = rowHeight}),
 }
 
 local labelSettings = {
@@ -52,17 +46,9 @@ local labelSettings = {
 
 local labels = {}
 local sliders = {
-	slider.new({x = rows[6].x, y = rows[7].y, parrent_height = rowHeight, parrent_width = rowWidth, id = "sfxVolume"}),
-	slider.new({x = rows[7].x, y = rows[8].y, parrent_height = rowHeight, parrent_width = rowWidth, id = "musicVolume"}),
+	slider.new({x = rows[2].x, y = rows[2].y, parrent_height = rowHeight, parrent_width = rowWidth, id = "sfxVolume"}),
+	slider.new({x = rows[3].x, y = rows[3].y, parrent_height = rowHeight, parrent_width = rowWidth, id = "musicVolume"}),
 }
-
-local radioButtons = {
-	checkbox.new({x = rows[2].x, y = rows[2].y, parrent_width = rows[2].width, parrent_height = rowHeight, bool = "markAndCross"}),
-	checkbox.new({x = rows[3].x, y = rows[3].y, parrent_width = rows[3].width, parrent_height = rowHeight, bool = "hints"}),
-	checkbox.new({x = rows[4].x, y = rows[4].y, parrent_width = rows[4].width, parrent_height = rowHeight, bool = "validation"}),
-	checkbox.new({x = rows[5].x, y = rows[5].y, parrent_width = rows[5].width, parrent_height = rowHeight, bool = "displayTime"}),
-}
-
 
 local function generateLabels()
 	labels = {}
@@ -115,10 +101,6 @@ function MenuSettings:draw()
 		MenuSettings.buttons[i]:draw()
 	end
 
-	for i = 1, #radioButtons do
-		radioButtons[i]:draw()
-	end
-
 	for i = 1, #sliders do
 		sliders[i]:draw()
 	end
@@ -137,10 +119,6 @@ end
 function MenuSettings:mousepressed(x,y,button,istouch,presses)
 	for i = 1, #MenuSettings.buttons do
 		MenuSettings.buttons[i]:mousepressed(x,y,button,istouch,presses)
-	end
-
-	for i = 1, #radioButtons do
-		radioButtons[i]:mousepressed(x,y,button,istouch,presses)
 	end
 end
 

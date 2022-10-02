@@ -48,6 +48,7 @@ function Grid:mousepressed(x,y,button,istouch,presses)
 			if self.cells[i][j]:containsPoint(x, y) then
 				if self.cells[i][j].state == "empty" then
 					if gold:buyTower() then
+						Sound:play("towerPlace", "towerPlace", Settings.sfxVolume, 1)
 						self.cells[i][j].state = "tower"
 					end
 				elseif self.cells[i][j].state == "tower" then

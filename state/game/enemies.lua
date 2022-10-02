@@ -1,7 +1,6 @@
 Enemies = {}
 local enemy = require("constructors.enemy")
 local gold = require("state.game.gold")
--- local grid = require("state.game.grid")
 Enemies.active = {}
 
 function Enemies:load()

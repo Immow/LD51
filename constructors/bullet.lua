@@ -2,6 +2,7 @@ local Bullet = {}
 Bullet.__index = Bullet
 
 function Bullet.new(settings)
+	Sound:play("shoot", "shoot", Settings.sfxVolume, 1)
 	local instance = setmetatable({}, Bullet)
 	instance.x      = settings.x or 0
 	instance.y      = settings.y or 0

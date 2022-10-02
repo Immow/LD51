@@ -18,13 +18,14 @@ function Sound:init(id, source, soundType)
 end
 
 -- SFX
-Sound:init("marked", {"assets/sfx/marked.wav"})
+Sound:init("shoot", {"assets/sfx/shoot.wav"})
 Sound:init("click", {"assets/sfx/click.wav"})
-Sound:init("beep", {"assets/sfx/beep.wav"})
-Sound:init("crossed", {"assets/sfx/crossed.wav"})
+Sound:init("towerPlace", {"assets/sfx/towerPlace.wav"})
+Sound:init("death", {"assets/sfx/death.wav"})
+Sound:init("bossDeath", {"assets/sfx/bossDeath.wav"})
 
 -- Music
-Sound:init("music", {"assets/music/Adventure-320bit.mp3"})
+Sound:init("music", {"assets/music/music.wav"})
 
 function Sound:play(id, channel, volume, pitch, loop)
 	assert(Sound.source[id] ~= nil, "ID does not exist.")
