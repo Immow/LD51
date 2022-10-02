@@ -101,10 +101,9 @@ function Cell:drawState()
 	if self.state == "tower" then
 		love.graphics.setColor(Colors.purple)
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-		-- love.graphics.circle("line", self.x + self.width / 2, self.y + self.height / 2, self.range)
-		if self.attack then
-			-- love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.range)
-		end
+	elseif self.state == "tower1" then
+		love.graphics.setColor(Colors.yellow)
+		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	elseif self.state == "finish" then
 		love.graphics.setColor(Colors.blue)
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
@@ -134,6 +133,11 @@ function Cell:drawState()
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	end
 
+		-- love.graphics.circle("line", self.x + self.width / 2, self.y + self.height / 2, self.range)
+		-- if self.attack then
+			-- love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.range)
+		-- end
+
 	-- if self.direction.x ~= 0 or self.direction.y ~= 0 then
 	-- 	love.graphics.setColor(Colors.yellow)
 	-- 	love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
@@ -144,14 +148,14 @@ function Cell:drawBullets()
 	for i = #activeBullets, 1, -1 do
 		activeBullets[i]:draw()
 	end
-	love.graphics.print("\n"..#activeBullets)
+	-- love.graphics.print("\n"..#activeBullets)
 end
 
 function Cell:draw()
 	self:drawState()
 	self:drawBullets()
 	if debug then
-		love.graphics.setColor(1,0,0)
+		-- love.graphics.setColor(1,0,0)
 		-- love.graphics.print("i: "..self.position.x.." j: "..self.position.y, self.x, self.y+15)
 		-- love.graphics.print("id: "..self.id, self.x, self.y)
 		-- love.graphics.print(self.direction.x.."\n"..self.direction.y, self.x, self.y)

@@ -14,6 +14,7 @@ function Enemy.new(settings)
 	instance.vec2      = {x = 0, y = -1}
 	instance.speed     = settings.speed or 10
 	instance.hp        = settings.hp or 100
+	instance.id        = settings.id
 	return instance
 end
 
@@ -78,7 +79,11 @@ function Enemy:update(dt)
 end
 
 function Enemy:draw()
-	love.graphics.setColor(Colors.green)
+	if self.id == "boss" then
+		love.graphics.setColor(Colors.red)
+	else
+		love.graphics.setColor(Colors.green)
+	end
 	-- love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	love.graphics.circle("fill", self.x + self.width / 2, self.y + self.height / 2, self.radius)
 	love.graphics.setColor(Colors.white)

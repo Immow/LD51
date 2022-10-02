@@ -18,6 +18,8 @@ Settings.game = {
 	spawnRate = 5,
 	enemySpeed = 100,
 	enemyHP = 10,
+	wave = 1,
+	running = false,
 }
 
 -- stuff we save in config.cfg

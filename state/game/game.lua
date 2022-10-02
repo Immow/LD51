@@ -1,7 +1,7 @@
 Enemies            = require("state.game.enemies")
 local grid         = require("state.game.grid")
 local level        = require("state.game.level")
-local bullet = require("constructors.bullet")
+local gold         = require("state.game.gold")
 
 local Game = {}
 
@@ -33,6 +33,7 @@ end
 function Game:draw()
 	grid:draw()
 	Enemies:draw()
+	love.graphics.print(gold.amount)
 end
 
 function Game:update(dt)

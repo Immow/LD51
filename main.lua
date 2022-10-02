@@ -16,7 +16,7 @@ Flux     = require("libs.flux")
 
 require("startup")
 
-debug = true
+debug = false
 
 function love.load()
 	love.graphics.setBackgroundColor(0,0,0)

@@ -1,5 +1,6 @@
 local Grid = {}
 local cell = require("constructors.cell")
+local gold   = require("state.game.gold")
 -- local enemies = require("state.game.enemies")
 
 function Grid:load()
@@ -46,7 +47,13 @@ function Grid:mousepressed(x,y,button,istouch,presses)
 		for j = 1, #self.cells[i] do
 			if self.cells[i][j]:containsPoint(x, y) then
 				if self.cells[i][j].state == "empty" then
-					self.cells[i][j].state = "tower"
+					if gold:buyTower() then
+						self.cells[i][j].state = "tower"
+					end
+				elseif self.cells[i][j].state == "tower" then
+					if gold:buyUpgrade1() then
+						self.cells[i][j].state = "tower1"
+					end
 				end
 			end
 		end
