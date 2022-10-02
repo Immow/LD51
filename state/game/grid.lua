@@ -54,6 +54,10 @@ function Grid:mousepressed(x,y,button,istouch,presses)
 					if gold:buyUpgrade1() then
 						self.cells[i][j].state = "tower1"
 					end
+				elseif self.cells[i][j].state == "tower1" then
+					if gold:buyUpgrade2() then
+						self.cells[i][j].state = "tower2"
+					end
 				end
 			end
 		end

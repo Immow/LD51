@@ -48,7 +48,7 @@ function Cell:getEnemyPosition()
 end
 
 function Cell:detectEnemy(dt)
-	if self.state == "tower" then
+	if self.state == "tower" or self.state == "tower1" or self.state == "tower2" then
 		self.time = self.time - 1 * dt
 		for i = #Enemies.active, 1, -1 do
 			local distanceX = self.x - Enemies.active[i]:getPosition().x
@@ -63,6 +63,13 @@ function Cell:detectEnemy(dt)
 end
 
 function Cell:shoot(target, dt)
+	local dmg = 1
+	if self.state == "tower1" then
+		dmg = 5
+	end
+	if self.state == "tower2" then
+		dmg = 10
+	end
 	if self.time < 0 then
 		self.attack = false
 		self.time = 1
@@ -76,6 +83,7 @@ function Cell:shoot(target, dt)
 			targetY = target.y + self.height / 2,
 			target = target,
 			speed = 0.1,
+			dmg = dmg,
 			})
 		)
 	end
@@ -103,6 +111,9 @@ function Cell:drawState()
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	elseif self.state == "tower1" then
 		love.graphics.setColor(Colors.yellow)
+		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+	elseif self.state == "tower2" then
+		love.graphics.setColor(Colors.red)
 		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 	elseif self.state == "finish" then
 		love.graphics.setColor(Colors.blue)
