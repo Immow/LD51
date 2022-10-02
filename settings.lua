@@ -9,7 +9,7 @@ function Settings:load()
 
 Settings.game = {
 	spawnRate = 5,
-	enemySpeed = 300,
+	enemySpeed = 100,
 	enemyHP = 10,
 	wave = 1,
 	running = false,

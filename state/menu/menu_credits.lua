@@ -5,9 +5,6 @@ local text        = require("constructors.text")
 local Credits = {}
 
 local function backButton()
-	local data = Lib.saveDataList()
-
-	Lib.writeData("config.cfg", data)
 	State.setScene("state.menu.menu_main")
 end
 

@@ -14,8 +14,6 @@ Sound    = require("libs.sounds")
 State    = require("state.state")
 Flux     = require("libs.flux")
 
-require("startup")
-
 debug = false
 
 function love.load()

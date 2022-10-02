@@ -40,7 +40,7 @@ function Enemies:gameTick()
 
 	Settings.game.enemyHP = Settings.game.enemyHP + 1
 	Settings.game.wave = Settings.game.wave + 1
-	print(Settings.game.wave, gold.cost)
+	-- print(Settings.game.wave, gold.cost)
 end
 
 function Enemies:generateEnemy()

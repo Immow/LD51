@@ -2,7 +2,7 @@ function love.conf(t)
 	t.title = "LD 51"
 	t.identity = "LD 51"
 	t.version = "11.3"
-	t.console = true
+	t.console = false
 	t.window.width = 800
 	t.window.height = 600
 	t.window.msaa = 8

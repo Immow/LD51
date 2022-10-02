@@ -14,25 +14,6 @@ function Game:load()
 	gold:load()
 end
 
-function WriteSaveData()
-	-- local data = {
-	-- 	main = Lib.copyCellState(grid.cells),
-	-- }
-	
-	-- Lib.writeData("game_saves/"..Settings.problemNr..".dat", data)
-	
-	-- local gameSettings = Lib.saveDataList()
-	-- Lib.writeData("config.cfg", gameSettings)
-
-	-- if Settings.game.state[Settings.problemNr] == "solved" then -- is the puzzle solved
-	-- 	Settings.game.state[Settings.problemNr] = "solved"
-	-- 	Lib.writeData("game.dat", Settings.game)
-	-- else
-	-- 	Settings.game.state[Settings.problemNr] = "pending"
-	-- 	Lib.writeData("game.dat", Settings.game)
-	-- end
-end
-
 function Game:draw()
 	grid:draw()
 	Enemies:draw()
@@ -60,7 +41,6 @@ end
 function Game:mousereleased(x,y,button,istouch,presses)
 	grid:mousereleased(x,y,button,istouch,presses)
 	level:mousereleased(x,y,button,istouch,presses)
-	-- WriteSaveData()
 end
 
 return Game
