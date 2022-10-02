@@ -1,14 +1,10 @@
 local newButton   = require("constructors.button")
 local row         = require("constructors.row")
 local text        = require("constructors.text")
-local slider      = require("constructors.slider")
 
-local MenuSettings = {}
+local GameOver = {}
 
 local function backButton()
-local data = Lib.saveDataList()
-
-	Lib.writeData("config.cfg", data)
 	State.setScene("state.menu.menu_main")
 end
 
@@ -29,21 +25,13 @@ end
 
 local rows = {
 	row.new({x = centerRow, y = get_y_position(1), width = rowWidth, height = rowHeight, color = Colors.black}),
-	row.new({x = centerRow, y = get_y_position(2), width = rowWidth, height = rowHeight}),
-	row.new({x = centerRow, y = get_y_position(3), width = rowWidth, height = rowHeight}),
 }
 
 local labelSettings = {
-	{name = "Audio", font = TitleFont, offset = 0, color = Colors.blue[300]},
-	{name = "SFX", font = SettingsFont},
-	{name = "Music", font = SettingsFont},
+	{name = "GAME OVER", font = TitleFont, offset = 0, color = Colors.blue[300]},
 }
 
 local labels = {}
-local sliders = {
-	slider.new({x = rows[2].x, y = rows[2].y, parrent_height = rowHeight, parrent_width = rowWidth, id = "sfxVolume"}),
-	slider.new({x = rows[3].x, y = rows[3].y, parrent_height = rowHeight, parrent_width = rowWidth, id = "musicVolume"}),
-}
 
 local function generateLabels()
 	labels = {}
@@ -62,19 +50,21 @@ local function generateLabels()
 	end
 end
 
-function MenuSettings:load()
+function GameOver:load()
 	self:generateButtons()
 	generateLabels()
+	self:Blaat()
 end
 
-function MenuSettings:generateButtons()
-	MenuSettings.buttons = {}
+function GameOver:generateButtons()
+	GameOver.buttons = {}
 	local x = Settings.ww - (Settings.button.width + Settings.button.padding)
 	local y = Settings.wh - (Settings.button.height + Settings.button.padding)
 	for i = 1, #buttonList do
-		MenuSettings.buttons[i] = newButton.new({
+		GameOver.buttons[i] = newButton.new({
 			x        = x,
-			y        = y, width                  = Settings.button.width,
+			y        = y,
+			width    = Settings.button.width,
 			height   = Settings.button.height,
 			text     = buttonList[i]["name"],
 			func     = buttonList[i]["func"],
@@ -86,41 +76,38 @@ function MenuSettings:generateButtons()
 end
 
 
-function MenuSettings:draw()
+function GameOver:draw()
 	for i = 1, #rows do
 		rows[i]:draw()
 		labels[i]:draw()
 	end
 
-	for i = 1, #MenuSettings.buttons do
-		MenuSettings.buttons[i]:draw()
-	end
-
-	for i = 1, #sliders do
-		sliders[i]:draw()
+	for i = 1, #GameOver.buttons do
+		GameOver.buttons[i]:draw()
 	end
 end
 
-function MenuSettings:update(dt)
-	for i = 1, #MenuSettings.buttons do
-		MenuSettings.buttons[i]:update(dt)
-	end
+function GameOver:Blaat()
+	Flux.to(labels[1], 5, {x = love.math.random(0, Settings.ww), y =love.math.random(0, Settings.wh)})
+	Timer.new(5, function () self:Blaat() end)
+end
 
-	for i = 1, #sliders do
-		sliders[i]:update(dt)
+function GameOver:update(dt)
+	for i = 1, #GameOver.buttons do
+		GameOver.buttons[i]:update(dt)
 	end
 end
 
-function MenuSettings:mousepressed(x,y,button,istouch,presses)
-	for i = 1, #MenuSettings.buttons do
-		MenuSettings.buttons[i]:mousepressed(x,y,button,istouch,presses)
+function GameOver:mousepressed(x,y,button,istouch,presses)
+	for i = 1, #GameOver.buttons do
+		GameOver.buttons[i]:mousepressed(x,y,button,istouch,presses)
 	end
 end
 
-function MenuSettings:mousereleased(x,y,button,istouch,presses)
-	for i = 1, #MenuSettings.buttons do
-		MenuSettings.buttons[i]:mousereleased(x,y,button,istouch,presses)
+function GameOver:mousereleased(x,y,button,istouch,presses)
+	for i = 1, #GameOver.buttons do
+		GameOver.buttons[i]:mousereleased(x,y,button,istouch,presses)
 	end
 end
 
-return MenuSettings
+return GameOver

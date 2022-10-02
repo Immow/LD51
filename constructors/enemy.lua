@@ -78,6 +78,7 @@ function Enemy:update(dt)
 			self.vec2 = {x = 1, y = 0}
 		elseif self:containsPoint().state == "finish" then
 			self.hp = 0
+			State.setScene("state.menu.gameover")
 		end
 	end
 	self:movement(dt)

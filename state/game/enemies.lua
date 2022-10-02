@@ -4,6 +4,7 @@ local gold = require("state.game.gold")
 Enemies.active = {}
 
 function Enemies:load()
+	self.active = nil
 	self.active = {}
 	Settings.game.running = true
 	self:generateEnemy()

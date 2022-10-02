@@ -1,5 +1,21 @@
 local Settings = {}
 
+function Settings:load()
+	Settings.cellSize = 50
+	Settings.boardOffsetX = 10
+	Settings.boardOffsetY = 10
+	Settings.boardSizeX = 10
+	Settings.boardSizeY = 10
+
+Settings.game = {
+	spawnRate = 5,
+	enemySpeed = 300,
+	enemyHP = 10,
+	wave = 1,
+	running = false,
+}
+end
+
 Settings.ww, Settings.wh = love.graphics.getDimensions()
 Settings.focused = true
 
@@ -22,15 +38,8 @@ Settings.game = {
 	running = false,
 }
 
--- stuff we save in config.cfg
-Settings.problemNr = 1
-Settings.markAndCross = true
-Settings.hints = true
-Settings.validation = true
-Settings.displayTime = true
 Settings.sfxVolume = 0.5
 Settings.musicVolume = 0.5
-Settings.displayTouch = true
 Settings.version = 0.01
 
 -- stuff we save in game.dat

@@ -1,5 +1,11 @@
 local Gold = {amount = 30, cost = 10, upgrade1 = 15, upgrade2 = 45}
 
+function Gold:load()
+	self.amount = 30
+	self.cost = 10
+	self.upgrade1 = 15
+	self.upgrade2 = 45
+end
 
 function Gold:buyTower()
 	if self.amount >= self.cost then

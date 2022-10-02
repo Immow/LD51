@@ -19,6 +19,10 @@ function Timer:remove()
 	end
 end
 
+function Timer:removeAll()
+	active = {}
+end
+
 function Timer:update(dt)
 	if self.time - dt > 0 then
 		self.time = self.time - dt

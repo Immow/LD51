@@ -6,9 +6,12 @@ local gold         = require("state.game.gold")
 local Game = {}
 
 function Game:load()
+	Settings:load()
+	Timer:removeAll()
 	grid:load()
 	level:load()
 	Enemies:load()
+	gold:load()
 end
 
 function WriteSaveData()
