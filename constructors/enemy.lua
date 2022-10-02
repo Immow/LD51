@@ -10,7 +10,7 @@ function Enemy.new(settings)
 	instance.width  = settings.width or 50
 	instance.height = settings.height or 50
 	instance.radius = settings.width / 2 - 10
-	instance.direction = settings.direction or {x = 1, y = 1}
+	instance.direction = settings.direction or {x = 1, y = 0}
 	instance.speed = settings.speed or 10
 	instance.hp = settings.hp or 100
 	instance.id = id
@@ -59,13 +59,21 @@ end
 
 function Enemy:update(dt)
 	if self:containsPoint() then
-		if self:containsPoint().direction.x ~= 0 or self:containsPoint().direction.y ~= 0 then
-			print(self:containsPoint().direction.x)
-			self.direction = self:containsPoint().direction
-		elseif  self:containsPoint().state == "finish" then
-			print("finish!")
+		local cell = self:containsPoint()
+		if cell.state == "up" then
+			self.direction = {x = 0, y = -1}
+		elseif cell.state == "down" then
+			self.direction = {x = 0, y = 1}
+		elseif cell.state == "left" then
+			self.direction = {x = -1, y = 0}
+		elseif cell.state == "right" then
+			self.direction = {x = 1, y = 0}
 		end
 	end
+
+		-- elseif  self:containsPoint().state == "finish" then
+		-- 	print("finish!")
+		-- end
 	self:movement(dt)
 end
 

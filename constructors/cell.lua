@@ -16,7 +16,7 @@ function Cell.new(settings)
 	instance.id                  = settings.id or 0
 	instance.position            = settings.position
 	instance.state               = "empty"
-	instance.direction           = settings.direction or {x = 0, y = 0}
+	instance.direction           = settings.direction or nil
 	instance.range               = settings.range or 100
 	instance.attack              = false
 	instance.taget               = nil
@@ -102,6 +102,9 @@ function Cell:drawState()
 	elseif self.state == "finish" then
 		love.graphics.setColor(Colors.blue)
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+	elseif self.state == "start" then
+		love.graphics.setColor(Colors.teal)
+		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	elseif self.state == "roadV" then
 		love.graphics.setColor(1,1,1)
 		love.graphics.draw(roadV, self.x, self.y)
@@ -113,10 +116,10 @@ function Cell:drawState()
 		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 	end
 
-	if self.direction.x ~= 0 or self.direction.y ~= 0 then
-		love.graphics.setColor(Colors.yellow)
-		love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
-	end
+	-- if self.direction.x ~= 0 or self.direction.y ~= 0 then
+	-- 	love.graphics.setColor(Colors.yellow)
+	-- 	love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+	-- end
 end
 
 function Cell:drawBullets()
@@ -133,7 +136,7 @@ function Cell:draw()
 		love.graphics.setColor(1,0,0)
 		-- love.graphics.print("i: "..self.position.x.." j: "..self.position.y, self.x, self.y+15)
 		-- love.graphics.print("id: "..self.id, self.x, self.y)
-		love.graphics.print(self.direction.x.."\n"..self.direction.y, self.x, self.y)
+		-- love.graphics.print(self.direction.x.."\n"..self.direction.y, self.x, self.y)
 	end
 end
 

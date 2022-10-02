@@ -4,39 +4,34 @@ local grid = require("state.game.grid")
 
 function Level:load()
 	-- y, x
-	grid.cells[10][10].direction = {x = -1, y = 0}
-	grid.cells[10][1].direction = {x = 0, y = -1}
-	grid.cells[5][1].direction = {x = 1, y = 0}
-	grid.cells[5][5].direction = {x = 0, y = -1}
+	grid.cells[1][10].state      = "down"
+	grid.cells[10][10].state     = "left"
+	grid.cells[10][1].state      = "up"
+	grid.cells[5][1].state       = "right"
+	grid.cells[5][5].state       = "up"
+
+	grid.cells[1][10].state = "start"
 	grid.cells[1][5].state = "finish"
 
-	grid.cells[1][10].state = "roadV"
-	grid.cells[2][10].state = "roadV"
-	grid.cells[3][10].state = "roadV"
-	grid.cells[4][10].state = "roadV"
-	grid.cells[5][10].state = "roadV"
-	grid.cells[6][10].state = "roadV"
-	grid.cells[7][10].state = "roadV"
-	grid.cells[8][10].state = "roadV"
-	grid.cells[9][10].state = "roadV"
+	self:generateRoad()
+end
 
-	grid.cells[6][1].state = "roadV"
-	grid.cells[7][1].state = "roadV"
-	grid.cells[8][1].state = "roadV"
-	grid.cells[9][1].state = "roadV"
+function Level.getStart()
+	for i = 1, #grid.cells do
+		for j = 1, #grid.cells[i] do
+			if grid.cells[i][j].state == "start" then
+				return grid.cells[i][j]:getPosition()
+			end
+		end
+	end
+end
 
-	grid.cells[2][5].state = "roadV"
-	grid.cells[3][5].state = "roadV"
-	grid.cells[4][5].state = "roadV"
+function Level:moveDown()
+end
 
-	grid.cells[10][2].state = "roadH"
-	grid.cells[10][3].state = "roadH"
-	grid.cells[10][4].state = "roadH"
-	grid.cells[10][5].state = "roadH"
-	grid.cells[10][6].state = "roadH"
-	grid.cells[10][7].state = "roadH"
-	grid.cells[10][8].state = "roadH"
-	grid.cells[10][9].state = "roadH"
+function Level:generateRoad()
+	local x, y = self.getStart()
+	print(x, y)
 end
 
 function Level:drawLevel()
