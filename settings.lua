@@ -14,6 +14,12 @@ Settings.boardOffsetY = 10
 Settings.boardSizeX = 10
 Settings.boardSizeY = 10
 
+Settings.game = {
+	spawnRate = 5,
+	enemySpeed = 100,
+	enemyHP = 10,
+}
+
 -- stuff we save in config.cfg
 Settings.problemNr = 1
 Settings.markAndCross = true
@@ -26,6 +32,6 @@ Settings.displayTouch = true
 Settings.version = 0.01
 
 -- stuff we save in game.dat
-Settings.game = {state = {}, time = {}, size = {}, displayWinAnimation = {}}
+-- Settings.game = {state = {}, time = {}, size = {}, displayWinAnimation = {}}
 
 return Settings

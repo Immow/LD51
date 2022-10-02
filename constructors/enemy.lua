@@ -38,10 +38,10 @@ function Enemy:containsPoint()
 		for j = 1, #grid.cells[i] do
 			local cell = grid.cells[i][j]
 			-- if cell.x >= self.x and cell.x <= self.x + self.width and cell.y >= self.y and cell.y <= self.y + self.height then
-			if cell.x >= self.x - 0.5 and
-				cell.x <= self.x + 0.5 and
-				cell.y >= self.y - 0.5 and
-				cell.y <= self.y + 0.5
+			if cell.x >= self.x - 3 and
+				cell.x <= self.x + 3 and
+				cell.y >= self.y - 3 and
+				cell.y <= self.y + 3
 			then
 				return cell
 			end
@@ -59,12 +59,16 @@ function Enemy:update(dt)
 	if self:containsPoint() then
 		local cell = self:containsPoint()
 		if cell.direction == "up" then
+			self.x = cell.x
 			self.vec2 = {x = 0, y = -1}
 		elseif cell.direction == "down" then
+			self.x = cell.x
 			self.vec2 = {x = 0, y = 1}
 		elseif cell.direction == "left" then
+			self.y = cell.y
 			self.vec2 = {x = -1, y = 0}
 		elseif cell.direction == "right" then
+			self.y = cell.y
 			self.vec2 = {x = 1, y = 0}
 		elseif self:containsPoint().state == "finish" then
 			self.hp = 0

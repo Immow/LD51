@@ -15,11 +15,12 @@ function Enemies:generateEnemy()
 		width = 50,
 		height = 50,
 		direction = {x = 0, y = 1},
-		hp = 10,
-		speed = 150,
+		hp = Settings.game.enemyHP,
+		speed = Settings.game.enemySpeed,
 	})
 )
-Timer.new(5, function () Enemies:generateEnemy() end)
+	Settings.game.enemySpeed = Settings.game.enemySpeed + 50
+	Timer.new(Settings.game.spawnRate, function () Enemies:generateEnemy() end)
 end
 
 function Enemies:drawEnemies()
