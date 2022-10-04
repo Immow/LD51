@@ -7,13 +7,13 @@ function Settings:load()
 	Settings.boardSizeX = 10
 	Settings.boardSizeY = 10
 
-Settings.game = {
-	spawnRate = 5,
-	enemySpeed = 100,
-	enemyHP = 10,
-	wave = 1,
-	running = false,
-}
+	Settings.game = {
+		spawnRate = 5,
+		enemySpeed = 100,
+		enemyHP = 10,
+		wave = 1,
+		running = false,
+	}
 end
 
 Settings.ww, Settings.wh = love.graphics.getDimensions()

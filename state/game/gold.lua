@@ -9,7 +9,7 @@ end
 
 function Gold:buyTower()
 	if self.amount >= self.cost then
-		self.amount = self.amount - 10
+		self.amount = self.amount + self.cost
 		return true
 	end
 end
