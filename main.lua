@@ -23,6 +23,7 @@ function love.load()
 end
 
 function love.update(dt)
+	if dt > 0.01 then dt = 0.01 end
 	State:update(dt)
 	Timer.updateAll(dt)
 	Flux.update(dt)

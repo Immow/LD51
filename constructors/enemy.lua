@@ -33,12 +33,9 @@ function Enemy:getPosition()
 end
 
 function Enemy:containsPoint()
-	-- local x = 0
-	-- local y = 0
 	for i = 1, #grid.cells do
 		for j = 1, #grid.cells[i] do
 			local cell = grid.cells[i][j]
-			-- if cell.x >= self.x and cell.x <= self.x + self.width and cell.y >= self.y and cell.y <= self.y + self.height then
 			if cell.x >= self.x - 3 and
 				cell.x <= self.x + 3 and
 				cell.y >= self.y - 3 and
