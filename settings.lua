@@ -40,7 +40,7 @@ Settings.game = {
 
 Settings.sfxVolume = 0.5
 Settings.musicVolume = 0.5
-Settings.version = 0.01
+Settings.version = 0.02
 
 -- stuff we save in game.dat
 -- Settings.game = {state = {}, time = {}, size = {}, displayWinAnimation = {}}
